@@ -2,11 +2,15 @@
 
 Workshop — TDSE Tercer Tercio
 
-## Deployed URL
+## Status
 
-```
-https://isaac-risk-lab.duckdns.org
-```
+The system runs and is verified **locally**. It is not deployed to a public
+server, so Parts 4 to 6 of the workshop (Duck DNS, Apache, Let's Encrypt) are
+not covered here.
+
+The subdomain `isaac-risk-lab.duckdns.org` is already reserved and the
+deployment files under `deploy/` are configured for it, so the remaining work
+is to provision a host and run `deploy/deploy.sh`.
 
 ## Architecture
 
@@ -93,10 +97,10 @@ bash deploy.sh isaac-risk-lab.duckdns.org \
 
 ## Verification checklist
 
-- [ ] Unauthenticated `GET /api/risk-status` returns 401
-- [ ] Logged-in user gets 200 with subject and control fields
-- [ ] Backend validates JWT issuer and audience
-- [ ] Application reachable at `https://isaac-risk-lab.duckdns.org`
-- [ ] Browser shows valid certificate (HTTPS lock)
-- [ ] Port 8080 not reachable from public internet
-- [ ] `sudo certbot renew --dry-run` succeeds
+- [x] Unauthenticated `GET /api/risk-status` returns 401
+- [x] Logged-in user gets 200 with subject and control fields — see `img/`
+- [x] Backend validates JWT issuer and audience
+- [ ] Application reachable at `https://isaac-risk-lab.duckdns.org` — not deployed
+- [ ] Browser shows valid certificate (HTTPS lock) — not deployed
+- [ ] Port 8080 not reachable from public internet — not deployed
+- [ ] `sudo certbot renew --dry-run` succeeds — not deployed
