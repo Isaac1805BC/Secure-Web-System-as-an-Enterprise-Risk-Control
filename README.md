@@ -1,11 +1,11 @@
 # Secure Web System as an Enterprise Risk Control
 
-Workshop — TDSE Segundo Tercio
+Workshop — TDSE Tercer Tercio
 
 ## Deployed URL
 
 ```
-https://YOUR-SUBDOMAIN.duckdns.org
+https://isaac-risk-lab.duckdns.org
 ```
 
 ## Architecture
@@ -53,15 +53,18 @@ npm run dev
 
 | Variable | Value |
 |---|---|
-| `VITE_AUTH0_DOMAIN` | `YOUR_TENANT.us.auth0.com` |
-| `VITE_AUTH0_CLIENT_ID` | SPA client ID |
+| `VITE_AUTH0_DOMAIN` | `dev-wgnqzydrt31jxn8m.us.auth0.com` |
+| `VITE_AUTH0_CLIENT_ID` | SPA client ID (see Auth0 dashboard) |
 | `VITE_AUTH0_AUDIENCE` | `https://enterprise-risk-api` |
 
 Auth0 SPA settings require these URLs (both local and production):
 
-- **Allowed Callback URLs**: `http://localhost:5173, https://YOUR-SUBDOMAIN.duckdns.org`
+- **Allowed Callback URLs**: `http://localhost:5173,https://isaac-risk-lab.duckdns.org`
 - **Allowed Logout URLs**: same
 - **Allowed Web Origins**: same
+
+The SPA is granted **User-Delegated Access** to the API with the `read:risk`
+permission. Client Access alone does not authorize a browser login.
 
 ## Deployment
 
@@ -72,7 +75,7 @@ cd ../backend && ./mvnw clean package
 
 # Copy artifacts to server, then:
 cd deploy
-bash deploy.sh YOUR-SUBDOMAIN.duckdns.org \
+bash deploy.sh isaac-risk-lab.duckdns.org \
     ../backend/target/enterprise-risk-api-0.0.1-SNAPSHOT.jar \
     ../frontend/dist
 ```
@@ -85,7 +88,7 @@ bash deploy.sh YOUR-SUBDOMAIN.duckdns.org \
 | JWT validation at API | Unauthorized API access | 401 without valid token |
 | Audience validation | Token reuse against another API | API accepts only `https://enterprise-risk-api` |
 | HTTPS + valid certificate | Token/credential exposure in transit | Browser lock icon |
-| Apache reverse proxy | Direct exposure of port 8080 | Only 80/443 public |
+| Apache reverse proxy | Direct exposure of port 8080 | Only 80/443 public; `server.address=127.0.0.1` |
 | systemd journal | Delayed incident investigation | `journalctl -u enterprise-risk-api` |
 
 ## Verification checklist
@@ -93,7 +96,7 @@ bash deploy.sh YOUR-SUBDOMAIN.duckdns.org \
 - [ ] Unauthenticated `GET /api/risk-status` returns 401
 - [ ] Logged-in user gets 200 with subject and control fields
 - [ ] Backend validates JWT issuer and audience
-- [ ] Application reachable at `https://YOUR-SUBDOMAIN.duckdns.org`
+- [ ] Application reachable at `https://isaac-risk-lab.duckdns.org`
 - [ ] Browser shows valid certificate (HTTPS lock)
 - [ ] Port 8080 not reachable from public internet
 - [ ] `sudo certbot renew --dry-run` succeeds

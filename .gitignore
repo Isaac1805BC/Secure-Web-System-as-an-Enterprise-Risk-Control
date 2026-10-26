@@ -1,9 +1,11 @@
 # Backend
 backend/target/
-backend/.mvn/
 *.class
-*.jar
 *.war
+
+# Build output, but keep the Maven wrapper so the repo builds after a clean clone.
+*.jar
+!backend/.mvn/wrapper/*.jar
 
 # Frontend
 frontend/node_modules/

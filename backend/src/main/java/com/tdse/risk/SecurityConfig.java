@@ -34,7 +34,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
                 "http://localhost:5173",
-                "https://YOUR-SUBDOMAIN.duckdns.org"
+                "https://isaac-risk-lab.duckdns.org"
         ));
         config.setAllowedMethods(List.of("GET"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
